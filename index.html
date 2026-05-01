@@ -178,9 +178,10 @@
       function decrypt() {
         var key = document.getElementById("key").value
         var encrypted = document.getElementById("data").value
+        var dataenc = getQueryParam("data")
 
         try {
-          var bytes = CryptoJS.AES.decrypt(encrypted, key)
+          var bytes = CryptoJS.AES.decrypt(dataenc, key)
           var originalText = bytes.toString(CryptoJS.enc.Utf8)
 
           if (!originalText) {
