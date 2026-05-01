@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Encrypt Link</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+  </head>
+  <body>
+    <h2>🔐 Encrypt URL</h2>
+
+    <label>Enter URL:</label><br />
+    <input type="text" id="url" placeholder="https://example.com" /><br /><br />
+
+    <label>Enter Secret Key:</label><br />
+    <input type="text" id="key" placeholder="mySecretKey" /><br /><br />
+
+    <button onclick="encrypt()">Generate</button>
+
+    <h3>Encrypted Value:</h3>
+    <textarea id="output" rows="4" cols="50"></textarea>
+
+    <h3>Generated Link:</h3>
+    <a id="link" target="_blank"></a>
+
+    <script>
+      function encrypt() {
+        var url = document.getElementById("url").value
+        var key = document.getElementById("key").value
+
+        var encrypted = CryptoJS.AES.encrypt(url, key).toString()
+
+        document.getElementById("output").value = encrypted
+
+        var finalLink = "index.html?data=" + encodeURIComponent(encrypted)
+        document.getElementById("link").href = finalLink
+        document.getElementById("link").innerText = finalLink
+      }
+    </script>
+  </body>
+</html>

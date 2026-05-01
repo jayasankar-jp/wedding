@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Decrypt & Redirect</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+  </head>
+  <body>
+    <h2>🔓 Decrypt Link</h2>
+
+    <label>Enter Secret Key:</label><br />
+    <input type="text" id="key" /><br /><br />
+
+    <label>Encrypted Data:</label><br />
+    <textarea id="data" rows="4" cols="50"></textarea><br /><br />
+
+    <button onclick="decrypt()">Decrypt & Redirect</button>
+
+    <script>
+      function getQueryParam(name) {
+        let urlParams = new URLSearchParams(window.location.search)
+        return urlParams.get(name)
+      }
+
+      // Auto-fill encrypted data from URL
+      window.onload = function () {
+        let data = getQueryParam("data")
+        if (data) {
+          document.getElementById("data").value = data
+        }
+      }
+
+      function decrypt() {
+        var key = document.getElementById("key").value
+        var encrypted = document.getElementById("data").value
+
+        try {
+          var bytes = CryptoJS.AES.decrypt(encrypted, key)
+          var originalText = bytes.toString(CryptoJS.enc.Utf8)
+
+          if (!originalText) {
+            alert("❌ Wrong Key or Invalid Data")
+            return
+          }
+
+          // Redirect
+          window.location.href = originalText
+        } catch (e) {
+          alert("Error decrypting data")
+        }
+      }
+    </script>
+  </body>
+</html>
