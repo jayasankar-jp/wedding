@@ -150,12 +150,12 @@
       <label>Secret Key</label>
       <input type="text" id="key" placeholder="Enter your key..." />
 
-     <!-- <label>Encrypted Data</label>
+     <label>Encrypted Data</label>
       <textarea
         id="data"
         rows="4"
         placeholder="Paste encrypted text..."
-      ></textarea> -->
+      ></textarea> 
 
       <button onclick="decrypt()">Decrypt & Redirect 🚀</button>
 
@@ -178,10 +178,10 @@
       function decrypt() {
         var key = document.getElementById("key").value
         var encrypted = document.getElementById("data").value
-        var dataenc = getQueryParam("data")
+        
 
         try {
-          var bytes = CryptoJS.AES.decrypt(dataenc, key)
+          var bytes = CryptoJS.AES.decrypt(encrypted, key)
           var originalText = bytes.toString(CryptoJS.enc.Utf8)
 
           if (!originalText) {
